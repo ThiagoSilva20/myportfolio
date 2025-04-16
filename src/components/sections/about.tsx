@@ -9,7 +9,7 @@ export function About() {
         <div className="flex flex-col md:flex-row gap-10 items-center">
           <div className="md:w-1/2">
             <p className="text-lg text-zinc-300 mb-6">
-              Desenvolvedor em formação com uma sólida base em Tecnologia da Informação e Desenvolvimento. Atualmente
+              Desenvolvedor em formação com uma sólida base em Tecnologia da Informação. Atualmente
               cursando Análise e Desenvolvimento de Sistemas pela Estácio, sou também formado em Desenvolvimento
               Front-End pela Tech4me e Técnico em Informática pelo Centro Interescolar Miécimo da Silva.
             </p>
