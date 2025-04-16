@@ -21,9 +21,9 @@ export function Hero() {
               Especializado em React.js, Next.js, Node.js e Tailwind CSS.
             </p>
             <div className="flex gap-4">
-              <Button className="bg-emerald-500 hover:bg-emerald-600" asChild>
+              {/* <Button className="bg-emerald-500 hover:bg-emerald-600" asChild>
                 <Link href="#projetos">Ver Projetos</Link>
-              </Button>
+              </Button> */}
               <Button variant="outline" className="hidden md:inline-flex border-emerald-500 text-emerald-500 hover:border-emerald-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" asChild>
                 <Link href="#contato">Contato</Link>
               </Button>
