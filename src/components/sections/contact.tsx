@@ -15,15 +15,41 @@ export function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
+    // Limpa o erro do campo ao digitar
+    setErrors({ ...errors, [e.target.id]: "" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const newErrors = {
+      name: formData.name.trim() ? "" : "Nome é obrigatório",
+      email: formData.email.trim()
+        ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+          ? ""
+          : "Email inválido"
+        : "Email é obrigatório",
+      subject: formData.subject.trim() ? "" : "Assunto é obrigatório",
+      message: formData.message.trim() ? "" : "Mensagem é obrigatória",
+    };
+
+    if (Object.values(newErrors).some((error) => error)) {
+      setErrors(newErrors);
+      setStatus("error");
+      return;
+    }
+
     setStatus("sending");
 
     try {
@@ -36,7 +62,7 @@ export function Contact() {
       if (res.ok) {
         setStatus("sent");
         setFormData({ name: "", subject: "", email: "", message: "" });
-        setTimeout(() => setStatus("idle"), 3000); // Reset status after 3 seconds
+        setTimeout(() => setStatus("idle"), 3000);
       } else {
         setStatus("error");
       }
@@ -66,21 +92,18 @@ export function Contact() {
                 value="thiago201714@gmail.com"
                 href="mailto:thiago201714@gmail.com"
               />
-
               <ContactItem
                 icon={<Phone className="text-emerald-500 h-6 w-6" />}
                 title="Telefone"
                 value="(21) 99339-2724"
                 href="https://api.whatsapp.com/send/?phone=5521993392724"
               />
-
               <ContactItem
                 icon={<Linkedin className="text-emerald-500 h-6 w-6" />}
                 title="LinkedIn"
                 value="linkedin.com/in/thiago-silva-3599221ba"
                 href="https://www.linkedin.com/in/thiago-silva-3599221ba"
               />
-
               <ContactItem
                 icon={<Github className="text-emerald-500 h-6 w-6" />}
                 title="GitHub"
@@ -104,9 +127,13 @@ export function Contact() {
                     onChange={handleChange}
                     value={formData.name}
                     id="name"
+                    required
                     className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="Seu nome"
                   />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm">{errors.name}</p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium">
@@ -117,9 +144,13 @@ export function Contact() {
                     value={formData.email}
                     id="email"
                     type="email"
+                    required
                     className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="seu@email.com"
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm">{errors.email}</p>
+                  )}
                 </div>
               </div>
 
@@ -131,9 +162,13 @@ export function Contact() {
                   onChange={handleChange}
                   value={formData.subject}
                   id="subject"
+                  required
                   className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   placeholder="Assunto da mensagem"
                 />
+                {errors.subject && (
+                  <p className="text-red-500 text-sm">{errors.subject}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -145,9 +180,13 @@ export function Contact() {
                   onChange={handleChange}
                   value={formData.message}
                   rows={5}
+                  required
                   className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   placeholder="Sua mensagem aqui..."
                 />
+                {errors.message && (
+                  <p className="text-red-500 text-sm">{errors.message}</p>
+                )}
               </div>
               <Button
                 type="submit"
