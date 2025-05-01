@@ -80,7 +80,7 @@ function ExperienceCard({ experience }: { experience: ExperienceItem }) {
               <span>{item}</span>
             </li>
           ))}
-        </ul>
+        </ul>        fzxxz
       </CardContent>
     </Card>
   )

@@ -4,9 +4,9 @@ import { Footer } from "@/components/layout/footer"
 import "./globals.css"
 
 export const metadata = {
-  title: "Thiago Silva | Desenvolvedor Full Stack",
+  title: "Thiago Silva | Desenvolvedor Front-End",
   description:
-    "Portfólio de Thiago Silva, Desenvolvedor Full Stack especializado em React, Next.js, Node.js e Tailwind CSS.",
+    "Portfólio de Thiago Silva, Desenvolvedor Front-End especializado em React, Next.js, Node.js e Tailwind CSS.",
 }
 
 export default function RootLayout({
